@@ -201,7 +201,7 @@ void ModbusParser::analyzePacket(quint8 * frame, int length)
         int address = (frame[2] << 8 | frame[3]);
         int points = (frame[4] << 8 | frame[5]);
 
-        if (function == 3)
+        if (function == 3 || function == 4)
         {
             if (length > 8)
             {
