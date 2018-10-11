@@ -3,7 +3,10 @@ QT += serialport
 QT -= gui
 
 SOURCES += main.cpp \
-    modbusparser.cpp
+    modbusparser.cpp \
+    debuglogger.cpp
 
 HEADERS += \
-    modbusparser.h
+    modbusparser.h \
+    test.h \
+    debuglogger.h
