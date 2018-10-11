@@ -132,6 +132,7 @@ void ModbusParser::analyzePacket(quint8 * frame, int length)
     }
 
     qDebug() << "Slave addr: " << frame[0];
+    qDebug() << "Function: " << frame[1];
 
     int function = frame[1];
     QString functionName;
@@ -160,6 +161,10 @@ void ModbusParser::analyzePacket(quint8 * frame, int length)
 
     case 6:
         functionName = "Preset Single Register";
+        break;
+
+    case 8:
+        functionName = "Diagnostics";
         break;
 
     case 15:
@@ -214,6 +219,13 @@ void ModbusParser::analyzePacket(quint8 * frame, int length)
                 debug << "  Start:" << address << "\n  Length:" << points;
                 m_lastAddress = address;
             }
+        }
+        else if (function == 8)
+        {
+            debug << functionName + "\n";
+            quint16 subfunction = ((frame[2] << 8) | frame[3]);
+            debug << "  Subfunction:" << subfunction << "\n. Length:" << length;
+
         }
         else if (function == 16)
         {
